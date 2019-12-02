@@ -17,7 +17,6 @@ echo " Final gas is : $GAS"
 echo "Logged in: `curl -k -s -c cookiefile -X POST   -H 'Content-Type: application/json'   -d '{"email":"'$MAIL'", "password":"'$PW'"}' https://localhost:6689/sessions|jq '.data.attributes.authenticated'`"
 if [ -f cookiefile ]
 then
-  COOKIE="clsession=`cat cookiefile |grep clsession|cut -f 7`"
   curl -k -s -b cookiefile -c cookiefile -X PATCH -H 'Content-Type: application/json' -d '{"ethGasPriceDefault":"'$GAS'"}' https://localhost:6689/v2/config|jq '{"Old": .data.attributes.ethGasPriceDefault.old, "New" : .data.attributes.ethGasPriceDefault.new} '
   rm cookiefile
 else
