@@ -1,12 +1,32 @@
 #!/bin/bash
+#
+# This script sets the gas to the highest value of three gas oracles +1 GWEI
+#
 MINIMUMGAS=10000000000
 CHAINLINKDIR=/home/chainlayer/.chainlink-mainnet
 
 ## No need to change below this line
 MAIL=`cat $CHAINLINKDIR/.api|head -1`
 PW=`cat $CHAINLINKDIR/.api|tail -1`
-AVGGAS=`curl -k -s https://ethgasstation.info/json/ethgasAPI.json|jq -r '.fastest'`
-echo -n "Fast gas is : ${AVGGAS}00000000"
+AVGGAS1=`curl -k -s https://ethgasstation.info/json/ethgasAPI.json|jq -r '.fastest'`
+AVGGAS2=`curl -k -s https://gasprice.poa.network/|jq -r '.fast'`0
+AVGGAS3=`curl -k -s https://api.anyblock.tools/latest-minimum-gasprice|jq -r '.fast'`0
+
+if [ $AVGGAS1 -gt $AVGGAS2 ]
+then
+  AVGGAS=$AVGGAS1
+else
+  AVGGAS=$AVGGAS2
+fi
+
+if [ $AVGGAS -lt $AVGGAS3 ]
+then
+  AVGGAS=$AVGGAS3
+fi
+
+echo "Gassprices: $AVGGAS1 $AVGGAS2 $AVGGAS3"
+echo -n "Fastest gas is : ${AVGGAS}00000000"
+
 GAS=$(($AVGGAS+10))00000000
 echo -n " New gas is : $GAS"
 if [ $GAS -lt $MINIMUMGAS ]
