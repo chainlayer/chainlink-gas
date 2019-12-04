@@ -12,9 +12,15 @@ MAIL=`cat $CHAINLINKDIR/.api|head -1`
 PW=`cat $CHAINLINKDIR/.api|tail -1`
 
 # Query Oracles
+<<<<<<< HEAD
 AVGGAS1=`curl -k -s https://ethgasstation.info/json/ethgasAPI.json| tac | tac |jq -r '.fastest' 2>/dev/null`
 AVGGAS2=`curl -k -s https://gasprice.poa.network/| tac | tac |jq -r '.fast' 2>/dev/null`0
 AVGGAS3=`curl -k -s https://api.anyblock.tools/latest-minimum-gasprice| tac | tac |jq -r '.fast' 2>/dev/null`0
+=======
+AVGGAS1=`curl -k -s https://ethgasstation.info/json/ethgasAPI.json|jq -r '.fastest' 2>/dev/null`
+AVGGAS2=`curl -k -s https://gasprice.poa.network/|jq -r '.fast' 2>/dev/null`0
+AVGGAS3=`curl -k -s https://api.anyblock.tools/latest-minimum-gasprice|jq -r '.fast' 2>/dev/null`0
+>>>>>>> 34bcfc91a97d85f8d8f906a237f69df4516639b7
 
 # Check for numbers
 re='^[0-9]+$'
