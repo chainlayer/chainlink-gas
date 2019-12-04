@@ -3,7 +3,7 @@
 # This script sets the gas to the highest value of three gas oracles +1 GWEI
 #
 MINIMUMGAS=10000000000
-CHAINLINKDIR=/home/chainlayer/.chainlink-mainnet
+CHAINLINKDIR=/home/chainlayer/.chainlink-mainnet/
 
 ## No need to change below this line
 ## Make sure you have your email address and password one on top of the other 
